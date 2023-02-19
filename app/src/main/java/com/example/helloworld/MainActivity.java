@@ -1,47 +1,42 @@
 package com.example.helloworld;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.view.View;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText nameEditText, npmEditText, majorEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText username = (EditText) findViewById(R.id.editTextTextPersonName);
-        username.setText("nama pengguna");
-        String nama_pengguna = username.getText().toString();
+        nameEditText = findViewById(R.id.nameEditText);
+        npmEditText = findViewById(R.id.npmEditText);
+        majorEditText = findViewById(R.id.majorEditText);
 
-        EditText password = (EditText) findViewById(R.id.editTextTextPassword);
-        password.setText("password pengguna");
-        String kata_sandi = password.getText().toString();
-
-        Button submit = (Button) findViewById(R.id.button);
-        submit.setText("tombol submit");
-
-        TextView output1 = (TextView) findViewById(R.id.textView2);
-        output1.setText("output pertama");
-
-        TextView output2 = (TextView) findViewById(R.id.textView3);
-        output2.setText("output kedua");
+        Button saveButton = findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveFormData();
+            }
+        });
     }
 
-    public void submit(View view){
-        EditText username = (EditText) findViewById(R.id.editTextTextPersonName);
-        EditText password = (EditText) findViewById(R.id.editTextTextPassword);
+    private void saveFormData() {
+        String name = nameEditText.getText().toString();
+        String npm = npmEditText.getText().toString();
+        String major = majorEditText.getText().toString();
 
-        TextView output1 = (TextView) findViewById(R.id.textView2);
-        TextView output2 = (TextView) findViewById(R.id.textView3);
-
-        output1.setText(username.getText());
-        output2.setText(password.getText());
+        Resources res = getResources();
+        res.getString(R.string.name, name);
+        res.getString(R.string.npm, npm);
+        res.getString(R.string.major, major);
     }
 }
